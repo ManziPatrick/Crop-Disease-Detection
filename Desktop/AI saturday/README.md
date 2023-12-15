@@ -1,2 +1,0 @@
-# Crop Disease Detection
- 
