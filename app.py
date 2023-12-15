@@ -1,10 +1,10 @@
 import streamlit as st
-from tensorflow.keras.models import load_model
+from tensorflow import keras
 import cv2
 import numpy as np
 
 # Load the Keras model
-model = load_model('model.h5')
+model = model = keras.models.load_model('model.h5')
 
 def preprocess_image(image):
     image = cv2.resize(image, (128, 128))
@@ -33,21 +33,23 @@ def predict(image):
 
 def main():
     st.title('Crop Disease Detection')
-    
+
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        # Read the image
-        image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
+        try:
+            # Read the image
+            image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
 
-        # Display the uploaded image
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+            # Display the uploaded image
+            st.image(image, caption='Uploaded Image', use_column_width=True)
 
-        # Make prediction
-        prediction = predict(image)
+            # Make prediction
+            prediction = predict(image)
 
-        # Display the prediction result
-        st.write(f'Prediction: {prediction}')
+            # Display the prediction result
+            st.write(f'Prediction: {prediction}')
 
-if __name__ == '__main__':
-    main()
+        except Exception as e:
+            # Display any exception that occurs during image processing
+            st.error(f"Error: {str(e)}")
