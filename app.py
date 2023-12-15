@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 from tensorflow import keras
 
-def load_model():
+def load_model(file_path):
     
-    model = keras.models.load_model("model.h5")
+    model = keras.models.load_model(file_path)
     return model
 
 def preprocess_image(image):
