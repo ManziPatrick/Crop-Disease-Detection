@@ -1,13 +1,12 @@
+
 import streamlit as st
 import cv2
 import numpy as np
-import h5py
+from tensorflow import keras
 
-def load_model(file_path):
-    # Load the Keras model using h5py
-    with h5py.File(file_path, 'r') as file:
-        model = model_from_json(file['model_architecture'].value)
-        model.set_weights(file['model_weights'].value)
+def load_model():
+    
+    model = keras.models.load_model("model.h5")
     return model
 
 def preprocess_image(image):
@@ -29,7 +28,7 @@ def main():
     st.title('Crop Disease Detection')
 
     # File uploader for the model
-    model_file = st.file_uploader("model.h5", type=["h5"])
+    model_file = st.file_uploader("Upload a model file (.h5)", type=["h5"])
 
     if model_file is not None:
         # Load the model
