@@ -3,6 +3,7 @@ from tensorflow import keras
 import cv2
 import numpy as np
 
+
 # Load the Keras model
 model = model = keras.models.load_model('model.h5')
 
