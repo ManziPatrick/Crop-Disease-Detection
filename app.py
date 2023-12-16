@@ -1,11 +1,11 @@
 import streamlit as st
-from tensorflow import keras
+import tensorflow as tf
 import cv2
 import numpy as np
 
 
 # Load the Keras model
-model = model = keras.models.load_model('model.h5')
+model = model = tf.keras.models.load_model('model.h5')
 
 def preprocess_image(image):
     image = cv2.resize(image, (128, 128))
